@@ -73,6 +73,8 @@ while (true) {
   // Add all the jobs to the queue
   await Promise.all(results.map((job) => job_queue.push(job)));
 
+  console.log("added", results.length, "jobs to the queue");
+
   // Wait 5 seconds before looking for incomplete jobs again
   await sleep(5000);
 }
