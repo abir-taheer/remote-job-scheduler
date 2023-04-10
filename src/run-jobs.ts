@@ -42,14 +42,16 @@ const job_handler: JobHandler = async (job) => {
       status: JobStatus.Succeeded,
       succeeded_at,
     });
-  } catch (e) {
+    await job.save();
+  } catch (error: any) {
     const failed_at = new Date();
     job.overwrite({
       status: JobStatus.Failed,
       failed_at,
     });
-  } finally {
     await job.save();
+
+    await job_class.error_handler(error, job.params, context);
   }
 };
 
