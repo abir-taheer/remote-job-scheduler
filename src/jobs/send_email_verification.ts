@@ -1,12 +1,11 @@
 // This file is an example for creating jobs with this microservice
 import { Job, JobParams } from "@/job";
+import { sleep } from "@/utils/sleep";
 
 export interface SendEmailVerificationProps extends JobParams {
   email: string;
   user_id: string;
 }
-
-const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 export const send_email_verification_job = new Job<SendEmailVerificationProps>({
   // This name uniquely identifies the current remote job
