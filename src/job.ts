@@ -14,7 +14,11 @@ export type JobParams = {
   [key: string]: ScalarValue | JobParams;
 };
 
-export type ExecutionContext = {};
+export type ExecutionContext = {
+  job_id: Types.ObjectId;
+  job_name: string;
+  started_at: Date;
+};
 
 export type ExecuteHandlerFn<Params extends JobParams> = (
   params: Params,
@@ -43,8 +47,8 @@ export type JobConstructorParams<Params extends JobParams> = {
 };
 export class Job<Params extends JobParams> {
   name: string;
-  private execute_handler: ExecuteHandlerFn<Params>;
-  private error_handler: ErrorHandlerFn<Params>;
+  execute_handler: ExecuteHandlerFn<Params>;
+  error_handler: ErrorHandlerFn<Params>;
   constructor(params: JobConstructorParams<Params>) {
     this.name = params.name;
     this.execute_handler = params.execute_handler;

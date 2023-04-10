@@ -1,4 +1,4 @@
-import { model, Schema } from "mongoose";
+import { HydratedDocument, model, Schema } from "mongoose";
 import { JobParams, JobStatus } from "@/job";
 
 type Nullable<Type> = null | Type;
@@ -50,4 +50,5 @@ const job_schema = new Schema<IJob>(
   }
 );
 
+export type JobModelInstance = HydratedDocument<IJob>;
 export const job_model = model<IJob>("job") || model<IJob>("job", job_schema);
